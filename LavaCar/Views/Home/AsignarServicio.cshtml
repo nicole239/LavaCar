@@ -1,0 +1,93 @@
+﻿@model LavaCar.Entidades.Asignacion
+@{
+    ViewBag.Title = "AsignarServicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Asignar Servicio a un Vehículo</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.Label("Placa", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Editor("Placa", new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.vehiculo.Placa, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Servicios: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("servicio", null, htmlAttributes: new { @class = "form-control" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="form-actions no-color">
+            <input type="submit" value="Asignar" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<div>
+    <h4>Vehiculo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.vehiculo.Placa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vehiculo.Placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vehiculo.Dueño)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vehiculo.Dueño)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vehiculo.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vehiculo.Marca)
+        </dd>
+        <dd>
+            <h5>Servicios</h5>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Descripción")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Monto")
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.servicios)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripción)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Monto)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
+
+    </dl>
+</div>
